@@ -95,7 +95,7 @@
 }
 
 
-- (void)postWithPath:(NSString *)path body:(NSDictionary *)body completion:(void (^)(NSDictionary *data, NSError *error))completion {
+- (void)postWithPath:(NSString *)path body:(NSData *)body completion:(void (^)(NSDictionary *data, NSError *error))completion {
     
     if (![_accessToken isValid]) {
         
@@ -127,7 +127,7 @@
     }
 }
 
-- (void)putWithPath:(NSString *)path body:(NSDictionary *)body completion:(void (^)(NSDictionary *data, NSError *error))completion {
+- (void)putWithPath:(NSString *)path body:(NSData *)body completion:(void (^)(NSDictionary *data, NSError *error))completion {
     
     if (![_accessToken isValid]) {
         

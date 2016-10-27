@@ -11,13 +11,12 @@
 
 @implementation MNUHTTPClient
 
-+ (void)POST:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSDictionary *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
++ (void)POST:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
 
     NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"POST" headers:headers parameters:parameters];
 
     if (body) {
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@[body] options:0 error:nil];
-        [urlRequest setHTTPBody:jsonData];
+        [urlRequest setHTTPBody:body];
     }
 
     NSURLSessionDataTask * dataTask =[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -35,13 +34,12 @@
 }
 
 
-+ (void)PUT:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSDictionary *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
++ (void)PUT:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
     
     NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"PUT" headers:headers parameters:parameters];
     
     if (body) {
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:body options:0 error:nil];
-        [urlRequest setHTTPBody:jsonData];
+        [urlRequest setHTTPBody:body];
     }
     
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
