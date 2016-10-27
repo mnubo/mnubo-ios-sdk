@@ -24,7 +24,7 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:nil] : nil;
         
-        if (httpResponse.statusCode != 200) {
+        if (httpResponse.statusCode >= 300) {
             error = [[NSError alloc] initWithDomain:@"mnubo" code:400 userInfo:nil];
         }
         
@@ -46,10 +46,11 @@
     
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        // NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:nil] : nil;
 
-        if (httpResponse.statusCode != 200 || httpResponse.statusCode != 201) {
-            error = [[NSError alloc] initWithDomain:@"mnubo" code:400 userInfo:nil];
+        if (httpResponse.statusCode >= 300) {
+            error = [[NSError alloc] initWithDomain:@"mnubo" code:httpResponse.statusCode userInfo:nil];
         }
         
         if (completion) completion(jsonData, httpResponse.allHeaderFields, error);
