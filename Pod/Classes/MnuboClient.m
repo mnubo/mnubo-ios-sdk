@@ -78,4 +78,23 @@ static MnuboClient *_sharedInstance = nil;
     }
 }
 
+// Services async
+
+- (void)updateSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId andCallBack:(void (^)(NSDictionary *data, NSError *error))callback {
+    NSString *path = [NSString stringWithFormat:@"/api/v3/objects/%@", deviceId];
+    [_apiManager putWithPath:path body:[smartObject toDictionary] completion:callback];
+}
+
+- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username andCallBack:(void (^)(NSDictionary *data, NSError *error))callback {
+    NSString *path = [NSString stringWithFormat:@"/api/v3/owners/%@", username];
+    [_apiManager putWithPath:path body:[owner toDictionary] completion:callback];
+}
+
+- (void)sendEvents:(NSArray *)events withDeviceId:(NSString *)deviceId andCallBack:(void (^)(NSDictionary *data, NSError *error))callback {
+    for (MNUEvent *event in events) {
+        NSString *path = [NSString stringWithFormat:@"/api/v3/objects/%@/events", deviceId];
+        [_apiManager postWithPath:path body:[event toDictionary] completion:callback];
+    }
+}
+
 @end
