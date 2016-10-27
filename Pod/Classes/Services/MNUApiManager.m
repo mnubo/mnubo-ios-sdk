@@ -127,7 +127,7 @@
     }
 }
 
-- (void)putWithPath:(NSString *)path body:(NSDictionary *)body completion:(void (^)(NSError *error))completion {
+- (void)putWithPath:(NSString *)path body:(NSDictionary *)body completion:(void (^)(NSDictionary *data, NSError *error))completion {
     
     if (![_accessToken isValid]) {
         
@@ -136,7 +136,7 @@
             if (error) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Access Token Invalid, Logout" object:nil];
                 
-                if (completion) completion(error);
+                if (completion) completion(nil, error);
             } else {
                 
                 [self putWithPath:path body:body completion:completion];
@@ -148,7 +148,7 @@
         NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, path];
         
         [MNUHTTPClient PUT:url headers:headers parameters:nil body:body completion:^(id data, NSDictionary *responsesHeaderFields, NSError *error) {
-            if (completion) completion(error);
+            if (completion) completion(nil, error);
         }];
     }
 }
