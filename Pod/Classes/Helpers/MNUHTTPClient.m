@@ -12,9 +12,6 @@
 @implementation MNUHTTPClient
 
 + (void)POST:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSDictionary *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
-    
-    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
 
     NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"POST" headers:headers parameters:parameters];
 
@@ -23,7 +20,7 @@
         [urlRequest setHTTPBody:jsonData];
     }
 
-    NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask * dataTask =[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:nil] : nil;
         
@@ -40,9 +37,6 @@
 
 + (void)PUT:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSDictionary *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
     
-    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
-    
     NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"PUT" headers:headers parameters:parameters];
     
     if (body) {
@@ -50,7 +44,7 @@
         [urlRequest setHTTPBody:jsonData];
     }
     
-    NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:nil] : nil;
 
