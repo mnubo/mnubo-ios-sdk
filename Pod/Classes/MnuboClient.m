@@ -84,31 +84,30 @@ static MnuboClient *_sharedInstance = nil;
 }
 
 // Services async
-
-- (void)updateSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId andCallBack:(void (^)(NSDictionary *data, NSError *error))callback {
+- (void)updateSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId completion:(void (^)(NSDictionary *data, NSError *error))completion {
     NSString *path = [NSString stringWithFormat:@"/api/v3/objects/%@", deviceId];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[smartObject toDictionary] options:0 error:nil];
     
-    [_apiManager putWithPath:path body:jsonData completion:callback];
+    [_apiManager putWithPath:path body:jsonData completion:completion];
 }
 
-- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username andCallBack:(void (^)(NSDictionary *data, NSError *error))callback {
+- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username completion:(void (^)(NSDictionary *data, NSError *error))completion {
     NSString *path = [NSString stringWithFormat:@"/api/v3/owners/%@", username];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[owner toDictionary] options:0 error:nil];
     
-    [_apiManager putWithPath:path body:jsonData completion:callback];
+    [_apiManager putWithPath:path body:jsonData completion:completion];
 }
 
-- (void)sendEvents:(NSArray *)events withDeviceId:(NSString *)deviceId andCallBack:(void (^)(NSDictionary *data, NSError *error))callback {
+- (void)sendEvents:(NSArray *)events withDeviceId:(NSString *)deviceId completion:(void (^)(NSDictionary *data, NSError *error))completion {
     NSArray *eventsPayload = [self convertEvents:events];
     NSString *path = [NSString stringWithFormat:@"/api/v3/objects/%@/events", deviceId];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:eventsPayload options:0 error:nil];
     
-    [_apiManager postWithPath:path body:jsonData completion:callback];
+    [_apiManager postWithPath:path body:jsonData completion:completion];
     
 }
 
-- (NSArray*) convertEvents:(NSArray *)events {
+- (NSArray *)convertEvents:(NSArray *)events {
     NSMutableArray *eventsPayload = [NSMutableArray arrayWithCapacity:[events count]];
     for (MNUEvent *event in events) {
         [eventsPayload addObject:[event toDictionary]];
