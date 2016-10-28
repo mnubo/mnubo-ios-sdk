@@ -11,7 +11,7 @@
 
 @implementation MNUHTTPClient
 
-+ (void)POST:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
++ (void)POST:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(NSData *data, NSDictionary *responsesHeaderFields, NSError *error))completion {
 
     NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"POST" headers:headers parameters:parameters];
 
@@ -21,20 +21,21 @@
 
     NSURLSessionDataTask * dataTask =[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:nil] : nil;
         
         if (httpResponse.statusCode >= 300) {
             error = [[NSError alloc] initWithDomain:@"mnubo" code:400 userInfo:nil];
+            NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"An error occurred: %@", errorPayload);
         }
         
-        if (completion) completion(jsonData, httpResponse.allHeaderFields, error);
+        if (completion) completion(data, httpResponse.allHeaderFields, error);
     }];
     
     [dataTask resume];
 }
 
 
-+ (void)PUT:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
++ (void)PUT:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(NSData *data, NSDictionary *responsesHeaderFields, NSError *error))completion {
     
     NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"PUT" headers:headers parameters:parameters];
     
@@ -45,13 +46,14 @@
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         // NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:nil] : nil;
 
         if (httpResponse.statusCode >= 300) {
             error = [[NSError alloc] initWithDomain:@"mnubo" code:httpResponse.statusCode userInfo:nil];
+            NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"An error occurred: %@", errorPayload);
         }
         
-        if (completion) completion(jsonData, httpResponse.allHeaderFields, error);
+        if (completion) completion(data, httpResponse.allHeaderFields, error);
     }];
     
     [dataTask resume];

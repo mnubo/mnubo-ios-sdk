@@ -30,9 +30,9 @@
 - (void)sendEvents:(NSArray *)events withDeviceId:(NSString *)deviceId;
 
 // Async services
-- (void)updateSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId completion:(void (^)(NSDictionary *data, NSError *error))completion;
-- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username completion:(void (^)(NSDictionary *data, NSError *error))completion;
-- (void)sendEvents:(NSArray *)events withDeviceId:(NSString *)deviceId completion:(void (^)(NSDictionary *data, NSError *error))completion;
+- (void)updateSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId completion:(void (^)(NSError *error))completion;
+- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username completion:(void (^)(NSError *error))completion;
+- (void)sendEvents:(NSArray *)events withDeviceId:(NSString *)deviceId completion:(void (^)(NSError *error))completion;
 
 
 
