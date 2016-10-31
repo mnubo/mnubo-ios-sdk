@@ -1,9 +1,7 @@
 //
 //  MNUAccessToken.m
-//  APIv3
 //
-//  Created by Guillaume on 2015-12-15.
-//  Copyright © 2015 mnubo. All rights reserved.
+//  Copyright (c) 2016 mnubo. All rights reserved.
 //
 
 #import "MNUAccessToken.h"
@@ -11,16 +9,6 @@
 #import "PDKeychainBindings.h"
 
 @implementation MNUAccessToken
-
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        [self loadTokens];
-    }
-    
-    return self;
-}
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     
@@ -30,8 +18,6 @@
         _refreshToken = [dictionary objectForKey:@"refresh_token"];
         _expiresIn = [dictionary objectForKey:@"expires_in"];
         _requestedAt = [NSDate date];
-        
-        [self saveTokens];
     }
     
     return self;
@@ -42,8 +28,6 @@
     _refreshToken = nil;
     _expiresIn = nil;
     _requestedAt = nil;
-    
-    [self saveTokens];
 }
 
 - (BOOL)isValid {

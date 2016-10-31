@@ -1,9 +1,7 @@
 //
 //  MNUConstants.m
-//  APIv3
 //
-//  Created by Guillaume on 2015-10-19.
-//  Copyright © 2015 mnubo. All rights reserved.
+//  Copyright (c) 2016 mnubo. All rights reserved.
 //
 
 #import "MNUConstants.h"
@@ -13,6 +11,7 @@ NSString * const kApiPath = @"/api/v3";
 NSString * const kOwnerPath = @"/owners";
 NSString * const kSmartObjectPath = @"/objects";
 NSString * const kEventPath = @"/events";
+NSString * const kMnuboDomain = @"com.mnubo.sdk";
 
 NSString * const kMnuboUserAccessTokenKey = @"com.mnubo.sdk.user_access_token";
 NSString * const kMnuboUserRefreshTokenKey = @"com.mnubo.sdk.user_refresh_token";

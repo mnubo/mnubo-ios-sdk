@@ -1,9 +1,7 @@
 //
 //  MNUAccessToken.h
-//  APIv3
 //
-//  Created by Guillaume on 2015-12-15.
-//  Copyright © 2015 mnubo. All rights reserved.
+//  Copyright (c) 2016 mnubo. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -18,5 +16,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)removeTokens;
 - (BOOL)isValid;
+- (void)loadTokens;
+- (void)saveTokens;
 
 @end

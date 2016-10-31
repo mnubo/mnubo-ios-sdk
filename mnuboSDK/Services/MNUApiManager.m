@@ -1,9 +1,7 @@
 //
 //  MNUApiManager.m
-//  APIv3
 //
-//  Created by Guillaume on 2015-10-18.
-//  Copyright © 2015 mnubo. All rights reserved.
+//  Copyright (c) 2016 mnubo. All rights reserved.
 //
 
 #import "MNUApiManager.h"
@@ -34,6 +32,7 @@
         _baseURL = hostname;
 
         _accessToken = [[MNUAccessToken alloc] init];
+        [_accessToken loadTokens];
     }
     return self;
 }
@@ -55,6 +54,7 @@
              id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&error] : nil;
              if(!error && [jsonData isKindOfClass:[NSDictionary class]]) {
                  _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
+                 [_accessToken saveTokens];
                 NSLog(@"User tokens fetched successfully with username/password");
              } else {
                  NSLog(@"Could not parse the authorization result.");
@@ -83,6 +83,7 @@
              id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&error] : nil;
              if(!error && [jsonData isKindOfClass:[NSDictionary class]]) {
                  _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
+                 [_accessToken saveTokens];
                  NSLog(@"User tokens fetched successfully with refresh token");
              } else {
                  NSLog(@"Could not parse the authorization result.");
@@ -161,6 +162,7 @@
 
 - (void)removeTokens {
     [_accessToken removeTokens];
+    [_accessToken saveTokens];
 }
 
 //------------------------------------------------------------------------------
