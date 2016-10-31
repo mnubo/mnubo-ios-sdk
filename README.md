@@ -43,9 +43,9 @@ The primary class of the SDK has to be initialized with your mnubo account infor
   - `isOwnerConnected`
 
 * `Services`
-  - `updateSmartObject:withDeviceId:`
-  - `updateOwner:withUsername:`
-  - `sendEvents:withDeviceId:`
+  - `updateSmartObject:withDeviceId:completion:`
+  - `updateOwner:withUsername:completion:`
+  - `sendEvents:withDeviceId:completion:`
 
 ---
 #<a name="section3"></a>3. Pre-requisites
@@ -126,7 +126,13 @@ You can update an owner properties
 
 ```objc
 
-[[MnuboClient sharedInstance] updateOwner:owner withUsername:@"USERNAME"];
+[[MnuboClient sharedInstance] updateOwner:owner withUsername:@"USERNAME" completion:^(NSError *error) {
+    if (!error) {
+        //Update Successful
+    } else {
+        //Update failed
+    }
+}];
 
 ```
 
@@ -136,7 +142,13 @@ You can update a SmartObject properties
 
 ```objc
 
-[[MnuboClient sharedInstance] updateSmartObject:smartObject withDeviceId:@"DEVICE_ID"];
+[[MnuboClient sharedInstance] updateSmartObject:smartObject withDeviceId:@"DEVICE_ID" completion:^(NSError *error) {
+    if (!error) {
+        //Update Successful
+    } else {
+        //Update failed
+    }
+}];
 
 ```
 
@@ -151,20 +163,22 @@ event.eventType = @"EVENT_TYPE";
 [event setTimeseries: @{ @"KEY": @"VALUE"}];
 
 // Send the event to the mnubo SmartObjects platform by specifying the device_id
-[[MnuboClient sharedInstance] sendEvents:@[event] withDeviceId:@"DEVICE_ID"];
+[[MnuboClient sharedInstance] sendEvents:@[event] withDeviceId:@"DEVICE_ID" completion:^(NSError *error) {
+    if (!error) {
+        //Send Successful
+    } else {
+        //Send failed
+    }
+}];
+
 
 ```
 
   ---
 #<a name="section6"></a>6. Important notes
 
-Every time the app resumes and the user is already logged in, you should set the oauth error callback which will be used in case both of the user's tokens (access and refresh) expire. To do so, simply add this line:
-```objc
+Do not forget to listen for the `com.mnubo.sdk.login.expired` notification. This notification will be sent in case the authentication is not able to renew its token. The response to this notification should be to log the user back in via its username/password.
 
-[[mnubo sharedInstance] setOauthErrorBlock:^(MBOError *error) {
-        // Show the login view to the user to log the user back in
-    }];
-```
 
 ---
 #<a name="section7"></a>7. Source code
