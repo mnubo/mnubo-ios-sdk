@@ -6,6 +6,7 @@
 
 #import "MNUHTTPClient.h"
 #import "NSString+mnubo.h"
+#import "MNUConstants.h"
 
 @implementation MNUHTTPClient
 
@@ -21,7 +22,7 @@
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
         
         if (httpResponse.statusCode >= 300) {
-            error = [[NSError alloc] initWithDomain:@"mnubo" code:400 userInfo:nil];
+            error = [[NSError alloc] initWithDomain:kMnuboDomain code:httpResponse.statusCode userInfo:nil];
             NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"An error occurred: %@", errorPayload);
         }
@@ -46,7 +47,7 @@
         // NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
         if (httpResponse.statusCode >= 300) {
-            error = [[NSError alloc] initWithDomain:@"mnubo" code:httpResponse.statusCode userInfo:nil];
+            error = [[NSError alloc] initWithDomain:kMnuboDomain code:httpResponse.statusCode userInfo:nil];
             NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"An error occurred: %@", errorPayload);
         }

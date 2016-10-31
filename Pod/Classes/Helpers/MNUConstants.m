@@ -11,6 +11,7 @@ NSString * const kApiPath = @"/api/v3";
 NSString * const kOwnerPath = @"/owners";
 NSString * const kSmartObjectPath = @"/objects";
 NSString * const kEventPath = @"/events";
+NSString * const kMnuboDomain = @"com.mnubo.sdk";
 
 NSString * const kMnuboUserAccessTokenKey = @"com.mnubo.sdk.user_access_token";
 NSString * const kMnuboUserRefreshTokenKey = @"com.mnubo.sdk.user_refresh_token";
