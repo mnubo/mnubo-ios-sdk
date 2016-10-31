@@ -49,16 +49,18 @@
     
     NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, kTokenPath];
     
-    [MNUHTTPClient POST:url headers:headers parameters:parameters body:nil completion:^(id data, NSDictionary *responsesHeaderFields, NSError *error) {
+    [MNUHTTPClient POST:url headers:headers parameters:parameters body:nil completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error) {
         
-         if(!error && [data isKindOfClass:[NSDictionary class]]) {
-             NSDictionary *jsonData = data;
-             
-             _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
-             
-             NSLog(@"User tokens fetched successfully with username/password");
+         if(!error) {
+             id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&error] : nil;
+             if(!error && [jsonData isKindOfClass:[NSDictionary class]]) {
+                 _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
+                NSLog(@"User tokens fetched successfully with username/password");
+             } else {
+                 NSLog(@"Could not parse the authorization result.");
+             }
          } else {
-             
+
              NSLog(@"An error occured while fetching the user tokens with username/password...");
          }
         
@@ -75,14 +77,16 @@
     
     NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, kTokenPath];
 
-    [MNUHTTPClient POST:url headers:headers parameters:parameters body:nil completion:^(id data, NSDictionary *responsesHeaderFields, NSError *error)
+    [MNUHTTPClient POST:url headers:headers parameters:parameters body:nil completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error)
      {
-         if(!error && [data isKindOfClass:[NSDictionary class]]) {
-             NSDictionary *jsonData = data;
-             
-             _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
-             
-             NSLog(@"User tokens fetched successfully with refresh token");
+         if(!error) {
+             id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&error] : nil;
+             if(!error && [jsonData isKindOfClass:[NSDictionary class]]) {
+                 _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
+                 NSLog(@"User tokens fetched successfully with refresh token");
+             } else {
+                 NSLog(@"Could not parse the authorization result.");
+             }
          } else {
              //Refresh Token expired
              //TODO Logout the user and redirect to login view
@@ -95,7 +99,7 @@
 }
 
 
-- (void)postWithPath:(NSString *)path body:(NSDictionary *)body completion:(void (^)(NSDictionary *data, NSError *error))completion {
+- (void)postWithPath:(NSString *)path body:(NSData *)body completion:(void (^)(NSData *data, NSError *error))completion {
     
     if (![_accessToken isValid]) {
         
@@ -116,18 +120,12 @@
         NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, path];
         
         [MNUHTTPClient POST:url headers:headers parameters:nil body:body completion:^(id data, NSDictionary *responsesHeaderFields, NSError *error) {
-            if(!error && [data isKindOfClass:[NSDictionary class]]) {
-                NSDictionary *jsonData = data;
-                if (completion) completion(jsonData, error);
-            } else {
-                if (completion) completion(nil, error);
-            }
-            
+            if (completion) completion(data, error);
         }];
     }
 }
 
-- (void)putWithPath:(NSString *)path body:(NSDictionary *)body completion:(void (^)(NSError *error))completion {
+- (void)putWithPath:(NSString *)path body:(NSData *)body completion:(void (^)(NSData *data, NSError *error))completion {
     
     if (![_accessToken isValid]) {
         
@@ -136,7 +134,7 @@
             if (error) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"Access Token Invalid, Logout" object:nil];
                 
-                if (completion) completion(error);
+                if (completion) completion(nil, error);
             } else {
                 
                 [self putWithPath:path body:body completion:completion];
@@ -147,8 +145,8 @@
         NSDictionary *headers = @{@"Content-Type": @"application/json", @"Authorization": [NSString stringWithFormat:@"Bearer %@", _accessToken.accessToken]};
         NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, path];
         
-        [MNUHTTPClient PUT:url headers:headers parameters:nil body:body completion:^(id data, NSDictionary *responsesHeaderFields, NSError *error) {
-            if (completion) completion(error);
+        [MNUHTTPClient PUT:url headers:headers parameters:nil body:body completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error) {
+            if (completion) completion(data, error);
         }];
     }
 }

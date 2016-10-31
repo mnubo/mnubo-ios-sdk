@@ -11,54 +11,49 @@
 
 @implementation MNUHTTPClient
 
-+ (void)POST:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSDictionary *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
-    
-    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
++ (void)POST:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(NSData *data, NSDictionary *responsesHeaderFields, NSError *error))completion {
 
     NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"POST" headers:headers parameters:parameters];
 
     if (body) {
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:@[body] options:0 error:nil];
-        [urlRequest setHTTPBody:jsonData];
+        [urlRequest setHTTPBody:body];
     }
 
-    NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask * dataTask =[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:nil] : nil;
         
-        if (httpResponse.statusCode != 200) {
+        if (httpResponse.statusCode >= 300) {
             error = [[NSError alloc] initWithDomain:@"mnubo" code:400 userInfo:nil];
+            NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"An error occurred: %@", errorPayload);
         }
         
-        if (completion) completion(jsonData, httpResponse.allHeaderFields, error);
+        if (completion) completion(data, httpResponse.allHeaderFields, error);
     }];
     
     [dataTask resume];
 }
 
 
-+ (void)PUT:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSDictionary *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion {
-    
-    NSURLSessionConfiguration *defaultConfigObject = [NSURLSessionConfiguration defaultSessionConfiguration];
-    NSURLSession *defaultSession = [NSURLSession sessionWithConfiguration: defaultConfigObject delegate: nil delegateQueue: [NSOperationQueue mainQueue]];
++ (void)PUT:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(NSData *data, NSDictionary *responsesHeaderFields, NSError *error))completion {
     
     NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"PUT" headers:headers parameters:parameters];
     
     if (body) {
-        NSData *jsonData = [NSJSONSerialization dataWithJSONObject:body options:0 error:nil];
-        [urlRequest setHTTPBody:jsonData];
+        [urlRequest setHTTPBody:body];
     }
     
-    NSURLSessionDataTask * dataTask =[defaultSession dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+    NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:nil] : nil;
+        // NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
-        if (httpResponse.statusCode != 200 || httpResponse.statusCode != 201) {
-            error = [[NSError alloc] initWithDomain:@"mnubo" code:400 userInfo:nil];
+        if (httpResponse.statusCode >= 300) {
+            error = [[NSError alloc] initWithDomain:@"mnubo" code:httpResponse.statusCode userInfo:nil];
+            NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"An error occurred: %@", errorPayload);
         }
         
-        if (completion) completion(jsonData, httpResponse.allHeaderFields, error);
+        if (completion) completion(data, httpResponse.allHeaderFields, error);
     }];
     
     [dataTask resume];

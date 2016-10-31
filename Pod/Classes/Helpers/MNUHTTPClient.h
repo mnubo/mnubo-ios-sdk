@@ -10,8 +10,8 @@
 
 @interface MNUHTTPClient : NSObject
 
-+ (void)POST:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSDictionary *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion;
++ (void)POST:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(NSData* data, NSDictionary *responsesHeaderFields, NSError *error))completion;
 
-+ (void)PUT:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSDictionary *)body completion:(void (^)(id data, NSDictionary *responsesHeaderFields, NSError *error))completion;
++ (void)PUT:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters body:(NSData *)body completion:(void (^)(NSData* data, NSDictionary *responsesHeaderFields, NSError *error))completion;
 
 @end
