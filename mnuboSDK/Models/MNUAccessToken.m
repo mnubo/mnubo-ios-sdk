@@ -10,16 +10,6 @@
 
 @implementation MNUAccessToken
 
-- (instancetype)init {
-    self = [super init];
-    
-    if (self) {
-        [self loadTokens];
-    }
-    
-    return self;
-}
-
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary {
     
     self = [super init];
@@ -28,8 +18,6 @@
         _refreshToken = [dictionary objectForKey:@"refresh_token"];
         _expiresIn = [dictionary objectForKey:@"expires_in"];
         _requestedAt = [NSDate date];
-        
-        [self saveTokens];
     }
     
     return self;
@@ -40,8 +28,6 @@
     _refreshToken = nil;
     _expiresIn = nil;
     _requestedAt = nil;
-    
-    [self saveTokens];
 }
 
 - (BOOL)isValid {

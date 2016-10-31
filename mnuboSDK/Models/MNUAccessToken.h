@@ -16,5 +16,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 - (void)removeTokens;
 - (BOOL)isValid;
+- (void)loadTokens;
+- (void)saveTokens;
 
 @end
