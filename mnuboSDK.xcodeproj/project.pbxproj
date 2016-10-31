@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		F0A959671DC6FF5100847656 /* mnuboSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A9595D1DC6FF5100847656 /* mnuboSDK.framework */; };
-		F0A9596C1DC6FF5100847656 /* mnuboSDKTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A9596B1DC6FF5100847656 /* mnuboSDKTests.m */; };
 		F0A9596E1DC6FF5100847656 /* mnuboSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A959601DC6FF5100847656 /* mnuboSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0A959921DC6FF7500847656 /* MNUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A959781DC6FF7500847656 /* MNUConstants.h */; };
 		F0A959931DC6FF7500847656 /* MNUConstants.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A959791DC6FF7500847656 /* MNUConstants.m */; };
@@ -33,6 +32,7 @@
 		F0A959A61DC6FF7500847656 /* PDKeychainBindingsController.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A9598E1DC6FF7500847656 /* PDKeychainBindingsController.m */; };
 		F0A959A71DC6FF7500847656 /* MNUApiManager.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A959901DC6FF7500847656 /* MNUApiManager.h */; };
 		F0A959A81DC6FF7500847656 /* MNUApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A959911DC6FF7500847656 /* MNUApiManager.m */; };
+		F0A959AC1DC708BE00847656 /* MNUAccessTokenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A959AB1DC708BE00847656 /* MNUAccessTokenTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -50,7 +50,6 @@
 		F0A959601DC6FF5100847656 /* mnuboSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mnuboSDK.h; sourceTree = "<group>"; };
 		F0A959611DC6FF5100847656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0A959661DC6FF5100847656 /* mnuboSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = mnuboSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		F0A9596B1DC6FF5100847656 /* mnuboSDKTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = mnuboSDKTests.m; sourceTree = "<group>"; };
 		F0A9596D1DC6FF5100847656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F0A959781DC6FF7500847656 /* MNUConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNUConstants.h; sourceTree = "<group>"; };
 		F0A959791DC6FF7500847656 /* MNUConstants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNUConstants.m; sourceTree = "<group>"; };
@@ -75,6 +74,7 @@
 		F0A9598E1DC6FF7500847656 /* PDKeychainBindingsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PDKeychainBindingsController.m; sourceTree = "<group>"; };
 		F0A959901DC6FF7500847656 /* MNUApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNUApiManager.h; sourceTree = "<group>"; };
 		F0A959911DC6FF7500847656 /* MNUApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNUApiManager.m; sourceTree = "<group>"; };
+		F0A959AB1DC708BE00847656 /* MNUAccessTokenTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNUAccessTokenTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,8 +132,8 @@
 		F0A9596A1DC6FF5100847656 /* mnuboSDKTests */ = {
 			isa = PBXGroup;
 			children = (
-				F0A9596B1DC6FF5100847656 /* mnuboSDKTests.m */,
 				F0A9596D1DC6FF5100847656 /* Info.plist */,
+				F0A959AB1DC708BE00847656 /* MNUAccessTokenTests.m */,
 			);
 			path = mnuboSDKTests;
 			sourceTree = "<group>";
@@ -326,7 +326,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F0A9596C1DC6FF5100847656 /* mnuboSDKTests.m in Sources */,
+				F0A959AC1DC708BE00847656 /* MNUAccessTokenTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
