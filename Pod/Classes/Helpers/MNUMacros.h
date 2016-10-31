@@ -1,9 +1,7 @@
 //
 //  MNUMacros.h
-//  APIv3
 //
-//  Created by Guillaume on 2015-10-25.
-//  Copyright © 2015 mnubo. All rights reserved.
+//  Copyright (c) 2016 mnubo. All rights reserved.
 //
 
 #define IsEqualToString(x,y) (([x isEqualToString:y]) || (!x && !y))

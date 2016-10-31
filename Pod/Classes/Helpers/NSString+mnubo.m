@@ -1,8 +1,7 @@
-
 //
 //  NSString+mnubo.m
 //
-//  Copyright (c) 2015 mnubo. All rights reserved.
+//  Copyright (c) 2016 mnubo. All rights reserved.
 //
 
 #import "NSString+mnubo.h"

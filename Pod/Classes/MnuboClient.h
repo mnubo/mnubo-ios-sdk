@@ -1,9 +1,7 @@
 //
 //  MnuboClient.h
-//  APIv3
 //
-//  Created by Guillaume on 2015-10-10.
-//  Copyright © 2015 mnubo. All rights reserved.
+//  Copyright (c) 2016 mnubo. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

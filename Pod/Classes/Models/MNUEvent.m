@@ -1,9 +1,7 @@
 //
 //  MNUEvent.m
-//  APIv3
 //
-//  Created by Guillaume on 2015-08-14.
-//  Copyright (c) 2015 mnubo. All rights reserved.
+//  Copyright (c) 2016 mnubo. All rights reserved.
 //
 
 #import "MNUEvent.h"
