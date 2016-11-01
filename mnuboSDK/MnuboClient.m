@@ -60,25 +60,15 @@ static MnuboClient *_sharedInstance = nil;
 }
 
 - (void)updateSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId {
-    NSString *path = [NSString stringWithFormat:@"/api/v3/objects/%@", deviceId];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[smartObject toDictionary] options:0 error:nil];
-    
-    [_apiManager putWithPath:path body:jsonData completion:nil];
+    [self updateSmartObject:smartObject withDeviceId:deviceId completion:nil];
 }
 
 - (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username {
-    NSString *path = [NSString stringWithFormat:@"/api/v3/owners/%@", username];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[owner toDictionary] options:0 error:nil];
-    
-    [_apiManager putWithPath:path body:jsonData completion:nil];
+    [self updateOwner:owner withUsername:username completion:nil];
 }
 
 - (void)sendEvents:(NSArray *)events withDeviceId:(NSString *)deviceId {
-    NSString *path = [NSString stringWithFormat:@"/api/v3/objects/%@/events", deviceId];
-    NSArray *eventsPayload = [self convertEvents:events];
-    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:eventsPayload options:0 error:nil];
-    
-    [_apiManager postWithPath:path body:jsonData completion:nil];
+    [self sendEvents:events withDeviceId:deviceId completion:nil];
 }
 
 // Services async

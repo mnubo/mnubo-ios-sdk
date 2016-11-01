@@ -177,7 +177,8 @@ event.eventType = @"EVENT_TYPE";
   ---
 #<a name="section6"></a>6. Important notes
 
-Do not forget to listen for the `com.mnubo.sdk.login.expired` notification. This notification will be sent in case the authentication is not able to renew its token. The response to this notification should be to log the user back in via its username/password.
+Do not forget to listen for the `com.mnubo.sdk.login.expired` notification. This notification will be sent in case the authentication is not able to renew its token. The response to this notification should be to take the user back to
+the login view.
 
 
 ---
