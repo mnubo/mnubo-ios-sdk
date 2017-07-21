@@ -14,8 +14,6 @@
 		F0A959941DC6FF7500847656 /* MNUHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A9597A1DC6FF7500847656 /* MNUHTTPClient.h */; };
 		F0A959951DC6FF7500847656 /* MNUHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A9597B1DC6FF7500847656 /* MNUHTTPClient.m */; };
 		F0A959961DC6FF7500847656 /* MNUMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A9597C1DC6FF7500847656 /* MNUMacros.h */; };
-		F0A959971DC6FF7500847656 /* NSString+mnubo.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A9597D1DC6FF7500847656 /* NSString+mnubo.h */; };
-		F0A959981DC6FF7500847656 /* NSString+mnubo.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A9597E1DC6FF7500847656 /* NSString+mnubo.m */; };
 		F0A959991DC6FF7500847656 /* MnuboClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A9597F1DC6FF7500847656 /* MnuboClient.h */; };
 		F0A9599A1DC6FF7500847656 /* MnuboClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A959801DC6FF7500847656 /* MnuboClient.m */; };
 		F0A9599B1DC6FF7500847656 /* MNUAccessToken.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A959821DC6FF7500847656 /* MNUAccessToken.h */; };
@@ -56,8 +54,6 @@
 		F0A9597A1DC6FF7500847656 /* MNUHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNUHTTPClient.h; sourceTree = "<group>"; };
 		F0A9597B1DC6FF7500847656 /* MNUHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNUHTTPClient.m; sourceTree = "<group>"; };
 		F0A9597C1DC6FF7500847656 /* MNUMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNUMacros.h; sourceTree = "<group>"; };
-		F0A9597D1DC6FF7500847656 /* NSString+mnubo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+mnubo.h"; sourceTree = "<group>"; };
-		F0A9597E1DC6FF7500847656 /* NSString+mnubo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+mnubo.m"; sourceTree = "<group>"; };
 		F0A9597F1DC6FF7500847656 /* MnuboClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnuboClient.h; sourceTree = "<group>"; };
 		F0A959801DC6FF7500847656 /* MnuboClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnuboClient.m; sourceTree = "<group>"; };
 		F0A959821DC6FF7500847656 /* MNUAccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNUAccessToken.h; sourceTree = "<group>"; };
@@ -146,8 +142,6 @@
 				F0A9597A1DC6FF7500847656 /* MNUHTTPClient.h */,
 				F0A9597B1DC6FF7500847656 /* MNUHTTPClient.m */,
 				F0A9597C1DC6FF7500847656 /* MNUMacros.h */,
-				F0A9597D1DC6FF7500847656 /* NSString+mnubo.h */,
-				F0A9597E1DC6FF7500847656 /* NSString+mnubo.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -195,7 +189,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0A959A31DC6FF7500847656 /* PDKeychainBindings.h in Headers */,
-				F0A959971DC6FF7500847656 /* NSString+mnubo.h in Headers */,
 				F0A9599F1DC6FF7500847656 /* MNUOwner.h in Headers */,
 				F0A959941DC6FF7500847656 /* MNUHTTPClient.h in Headers */,
 				F0A959A71DC6FF7500847656 /* MNUApiManager.h in Headers */,
@@ -255,7 +248,7 @@
 		F0A959541DC6FF5100847656 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = mnubo;
 				TargetAttributes = {
 					F0A9595C1DC6FF5100847656 = {
@@ -315,7 +308,6 @@
 				F0A959A61DC6FF7500847656 /* PDKeychainBindingsController.m in Sources */,
 				F0A959A01DC6FF7500847656 /* MNUOwner.m in Sources */,
 				F0A959931DC6FF7500847656 /* MNUConstants.m in Sources */,
-				F0A959981DC6FF7500847656 /* NSString+mnubo.m in Sources */,
 				F0A959A41DC6FF7500847656 /* PDKeychainBindings.m in Sources */,
 				F0A959951DC6FF7500847656 /* MNUHTTPClient.m in Sources */,
 				F0A9599E1DC6FF7500847656 /* MNUEvent.m in Sources */,
@@ -359,6 +351,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -410,6 +403,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -510,6 +504,7 @@
 				F0A959731DC6FF5100847656 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F0A959741DC6FF5100847656 /* Build configuration list for PBXNativeTarget "mnuboSDKTests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +513,7 @@
 				F0A959761DC6FF5100847656 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
