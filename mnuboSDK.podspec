@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name             = 'mnuboSDK'
-  s.version          = '1.3.2'
+  s.version          = '2.0.0'
   s.summary          = 'iOS SDK to communicate with the mnubo cloud platform'
   s.homepage         = 'https://github.com/mnubo/mnubo-ios-sdk'
   s.license          = 'MIT'
