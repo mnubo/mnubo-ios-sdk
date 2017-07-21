@@ -44,7 +44,6 @@
     
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        // NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 
         if (httpResponse.statusCode >= 300) {
             error = [[NSError alloc] initWithDomain:kMnuboDomain code:httpResponse.statusCode userInfo:nil];

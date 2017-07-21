@@ -38,8 +38,6 @@
 }
 
 
-// Private
-
 - (void)getUserAccessTokenWithUsername:(NSString *)username password:(NSString *)password completion:(void (^)(NSError *error))completion {
     
     
@@ -66,6 +64,44 @@
         
          if(completion) completion(error);
      }];
+}
+
+- (NSString *)ispToString:(SupportedIsp)isp {
+    switch(isp){
+        case GOOGLE:
+            return @"google";
+        case FACEBOOK:
+            return @"facebook";
+        case MICROSOFT:
+            return @"microsoft";
+    }
+}
+
+- (void)getUserAccessTokenWithISP:(NSString *)username andToken:(NSString *)token andISP:(SupportedIsp)isp completion:(void (^)(NSError *error))completion {
+    
+    NSDictionary *headers = @{ @"Content-Type": @"application/x-www-form-urlencoded"};
+    NSDictionary *parameters = @{ @"grant_type": @"isp_token", @"client_id": _clientId, @"isp_token": token, @"isp":[self ispToString:isp]};
+    
+    NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, kTokenPath];
+    
+    [MNUHTTPClient POST:url headers:headers parameters:parameters body:nil completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error) {
+        
+        if(!error) {
+            id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&error] : nil;
+            if(!error && [jsonData isKindOfClass:[NSDictionary class]]) {
+                _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
+                [_accessToken saveTokens];
+                NSLog(@"User tokens fetched successfully with ISP");
+            } else {
+                NSLog(@"Could not parse the authorization result.");
+            }
+        } else {
+            
+            NSLog(@"An error occured while fetching the user tokens with username/password...");
+        }
+        
+        if(completion) completion(error);
+    }];
 }
 
 
@@ -98,7 +134,6 @@
          if(completion) completion(error);
      }];
 }
-
 
 - (void)postWithPath:(NSString *)path body:(NSData *)body completion:(void (^)(NSData *data, NSError *error))completion {
     
