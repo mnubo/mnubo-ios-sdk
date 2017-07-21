@@ -13,6 +13,7 @@ NSString * const kSmartObjectPath = @"/objects";
 NSString * const kEventPath = @"/events";
 NSString * const kMnuboDomain = @"com.mnubo.sdk";
 
+NSString * const kMnuboUsernameKey = @"com.mnubo.sdk.username";
 NSString * const kMnuboUserAccessTokenKey = @"com.mnubo.sdk.user_access_token";
 NSString * const kMnuboUserRefreshTokenKey = @"com.mnubo.sdk.user_refresh_token";
 NSString * const kMnuboUserExpiresInKey = @"com.mnubo.sdk.user_expires_in";

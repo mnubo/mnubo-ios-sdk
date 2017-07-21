@@ -6,7 +6,7 @@
 
 #import "MNUApiManager.h"
 #import "MNUHTTPClient.h"
-#import "NSString+mnubo.h"
+#import "MNUSupportedIsp.h"
 #import "MNUConstants.h"
 #import "PDKeychainBindings.h"
 #import "MNUAccessToken.h"
@@ -37,21 +37,34 @@
     return self;
 }
 
+- (NSString *) getUsername {
+    return _accessToken.username;
+}
+
 
 - (void)getUserAccessTokenWithUsername:(NSString *)username password:(NSString *)password completion:(void (^)(NSError *error))completion {
     
     
     NSDictionary *headers = @{ @"Content-Type": @"application/x-www-form-urlencoded"};
-    NSDictionary *parameters = @{ @"grant_type": @"password", @"client_id": _clientId, @"username": username, @"password": password};
+    
+    NSURLQueryItem *grant = [NSURLQueryItem queryItemWithName:@"grant_type" value:@"password"];
+    NSURLQueryItem *cliendId = [NSURLQueryItem queryItemWithName:@"client_id" value:_clientId];
+    NSURLQueryItem *usernameParama = [NSURLQueryItem queryItemWithName:@"username" value:username];
+    NSURLQueryItem *passwordParam = [NSURLQueryItem queryItemWithName:@"password" value:password];
+    
     
     NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, kTokenPath];
+    NSURLComponents *components = [NSURLComponents componentsWithString:url];
+    components.queryItems = @[ grant, cliendId, usernameParama, passwordParam ];
     
-    [MNUHTTPClient POST:url headers:headers parameters:parameters body:nil completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error) {
+    NSData *body = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [MNUHTTPClient POST:url headers:headers parameters:nil body:body completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error) {
         
          if(!error) {
              id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&error] : nil;
              if(!error && [jsonData isKindOfClass:[NSDictionary class]]) {
-                 _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
+                 _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData andUsername:_accessToken.username];
                  [_accessToken saveTokens];
                 NSLog(@"User tokens fetched successfully with username/password");
              } else {
@@ -77,19 +90,28 @@
     }
 }
 
-- (void)getUserAccessTokenWithISP:(NSString *)username andToken:(NSString *)token andISP:(SupportedIsp)isp completion:(void (^)(NSError *error))completion {
+- (void)getUserAccessTokenWithUsername:(NSString *)username andToken:(NSString *)token andISP:(SupportedIsp)isp completion:(void (^)(NSError *error))completion {
     
     NSDictionary *headers = @{ @"Content-Type": @"application/x-www-form-urlencoded"};
-    NSDictionary *parameters = @{ @"grant_type": @"isp_token", @"client_id": _clientId, @"isp_token": token, @"isp":[self ispToString:isp]};
+    
+    NSURLQueryItem *grant = [NSURLQueryItem queryItemWithName:@"grant_type" value:@"isp_token"];
+    NSURLQueryItem *cliendId = [NSURLQueryItem queryItemWithName:@"client_id" value:_clientId];
+    NSURLQueryItem *ispToken = [NSURLQueryItem queryItemWithName:@"isp_token" value:token];
+    NSURLQueryItem *ispParam = [NSURLQueryItem queryItemWithName:@"isp" value:[self ispToString:isp]];
+    
     
     NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, kTokenPath];
+    NSURLComponents *components = [NSURLComponents componentsWithString:url];
+    components.queryItems = @[ grant, cliendId, ispToken, ispParam ];
     
-    [MNUHTTPClient POST:url headers:headers parameters:parameters body:nil completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error) {
+    NSData *body = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [MNUHTTPClient POST:url headers:headers parameters:nil body:body completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error) {
         
         if(!error) {
             id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&error] : nil;
             if(!error && [jsonData isKindOfClass:[NSDictionary class]]) {
-                _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
+                _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData andUsername:_accessToken.username];
                 [_accessToken saveTokens];
                 NSLog(@"User tokens fetched successfully with ISP");
             } else {
@@ -108,17 +130,24 @@
 - (void)getUserAccessTokenWithRefreshTokenCompletion:(void (^)(NSError *error))completion {
     
     NSDictionary *headers = @{ @"Content-Type": @"application/x-www-form-urlencoded"};
-    //TODO Should validate if refreshtoken is not nil
-    NSDictionary *parameters = @{ @"grant_type": @"refresh_token", @"client_id": _clientId, @"refresh_token": _accessToken.refreshToken};
+    
+    NSURLQueryItem *grant = [NSURLQueryItem queryItemWithName:@"grant_type" value:@"refresh_token"];
+    NSURLQueryItem *cliendId = [NSURLQueryItem queryItemWithName:@"client_id" value:_clientId];
+    NSURLQueryItem *refreshTokenParam = [NSURLQueryItem queryItemWithName:@"refresh_token" value:_accessToken.refreshToken];
+    
     
     NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, kTokenPath];
+    NSURLComponents *components = [NSURLComponents componentsWithString:url];
+    components.queryItems = @[ grant, cliendId, refreshTokenParam ];
+    
+    NSData *body = [components.percentEncodedQuery dataUsingEncoding:NSUTF8StringEncoding];
 
-    [MNUHTTPClient POST:url headers:headers parameters:parameters body:nil completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error)
+    [MNUHTTPClient POST:url headers:headers parameters:nil body:body completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error)
      {
          if(!error) {
              id jsonData = data.length > 0 ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&error] : nil;
              if(!error && [jsonData isKindOfClass:[NSDictionary class]]) {
-                 _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData];
+                 _accessToken = [[MNUAccessToken alloc] initWithDictionary:jsonData andUsername:_accessToken.username];
                  [_accessToken saveTokens];
                  NSLog(@"User tokens fetched successfully with refresh token");
              } else {
@@ -186,6 +215,33 @@
         }];
     }
 }
+
+- (void)deleteWithPath:(NSString *)path completion:(void (^)(NSData *data, NSError *error))completion {
+    
+    if (![_accessToken isValid]) {
+        
+        [self getUserAccessTokenWithRefreshTokenCompletion:^(NSError *error) {
+            
+            if (error) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"Access Token Invalid, Logout" object:nil];
+                
+                if (completion) completion(nil, error);
+            } else {
+                
+                [self deleteWithPath:path completion:completion];
+            }
+        }];
+    } else {
+        
+        NSDictionary *headers = @{@"Content-Type": @"application/json", @"Authorization": [NSString stringWithFormat:@"Bearer %@", _accessToken.accessToken]};
+        NSString *url = [NSString stringWithFormat:@"%@%@", _baseURL, path];
+        
+        [MNUHTTPClient DELETE:url headers:headers parameters:nil completion:^(NSData *data, NSDictionary *responsesHeaderFields, NSError *error) {
+            if (completion) completion(data, error);
+        }];
+    }
+}
+
 
 - (BOOL)isOwnerAccessTokenPresent {
     if (_accessToken.accessToken) {

@@ -8,12 +8,13 @@
 
 @interface MNUAccessToken : NSObject
 
+@property (nonatomic, copy) NSString *username;
 @property (nonatomic, copy) NSString *accessToken;
 @property (nonatomic, copy) NSString *refreshToken;
 @property (nonatomic, copy) NSNumber *expiresIn;
 @property (nonatomic, copy) NSDate *requestedAt;
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary;
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary andUsername:(NSString*) username;
 - (void)removeTokens;
 - (BOOL)isValid;
 - (void)loadTokens;

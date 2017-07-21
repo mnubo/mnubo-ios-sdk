@@ -44,6 +44,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39B285041F224AE600329E3F /* MNUSupportedIsp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNUSupportedIsp.h; sourceTree = "<group>"; };
 		F0A9595D1DC6FF5100847656 /* mnuboSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mnuboSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0A959601DC6FF5100847656 /* mnuboSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mnuboSDK.h; sourceTree = "<group>"; };
 		F0A959611DC6FF5100847656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -157,6 +158,7 @@
 				F0A959871DC6FF7500847656 /* MNUOwner.m */,
 				F0A959881DC6FF7500847656 /* MNUSmartObject.h */,
 				F0A959891DC6FF7500847656 /* MNUSmartObject.m */,
+				39B285041F224AE600329E3F /* MNUSupportedIsp.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";

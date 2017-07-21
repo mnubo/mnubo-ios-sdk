@@ -5,7 +5,6 @@
 //
 
 #import "MNUHTTPClient.h"
-#import "NSString+mnubo.h"
 #import "MNUConstants.h"
 
 @implementation MNUHTTPClient
@@ -58,6 +57,27 @@
 }
 
 
++ (void)DELETE:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters completion:(void (^)(NSData *, NSDictionary *, NSError *))completion{
+    
+    NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"DELETE" headers:headers parameters:parameters];
+    
+    NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
+        // NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        
+        if (httpResponse.statusCode >= 300) {
+            error = [[NSError alloc] initWithDomain:kMnuboDomain code:httpResponse.statusCode userInfo:nil];
+            NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+            NSLog(@"An error occurred: %@", errorPayload);
+        }
+        
+        if (completion) completion(data, httpResponse.allHeaderFields, error);
+    }];
+    
+    [dataTask resume];
+}
+
+
 //------------------------------------------------------------------------------
 #pragma mark Helper methods
 //------------------------------------------------------------------------------
@@ -69,14 +89,14 @@
     if ([[headers objectForKey:@"Content-Type"] isEqualToString:@"application/x-www-form-urlencoded"])
     {
         request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:path]];
-        NSString *encodedParams = [[self addParameters:parameters toPath:@""] substringFromIndex:1];
+        NSString *encodedParams = [self encodeParameters:parameters];
         [request setHTTPBody:[encodedParams dataUsingEncoding:NSUTF8StringEncoding]];
     }
     else
     {
-        request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[self addParameters:parameters toPath:path]]];
+        request = [[NSMutableURLRequest alloc] initWithURL:[self encodeURL:path withParameters:parameters]];
     }
-    
+
     [request setHTTPMethod:method];
     
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
@@ -85,32 +105,44 @@
      {
          [request setValue:value forHTTPHeaderField:key];
      }];
-    
+
     return request;
 }
 
-+ (NSString *)addParameters:(NSDictionary *)parameters toPath:(NSString *)path
-{
-    if (!parameters) return path;
-    
-    __block NSString *newPath = path;
-    __block BOOL firstParameterDone = NO;
++ (NSString *)encodeParameters:(NSDictionary *)parameters {
+    if (!parameters || [parameters count] < 1) return @"";
+
+    NSMutableArray *encodedParams = [NSMutableArray array];
+
+    NSURLComponents *components = [NSURLComponents init];
+
     [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop)
      {
-         if(!firstParameterDone)
-         {
-             newPath = [newPath stringByAppendingFormat:@"?%@=%@", key, [value urlEncode]];
-             firstParameterDone = YES;
-         }
-         else
-         {
-             newPath = [newPath stringByAppendingFormat:@"&%@=%@", key, [value urlEncode]];
-         }
+         [encodedParams addObject:[NSURLQueryItem queryItemWithName:key value:value]];
+     }];
+
+    components.queryItems = encodedParams;
+
+    return components.percentEncodedQuery;
+}
+
+
++ (NSURL *)encodeURL: (NSString *)url withParameters:(NSDictionary *)parameters {
+    NSURLComponents *components = [NSURLComponents componentsWithString:url];
+    
+    if (!parameters || [parameters count] < 1) return components.URL;
+    
+    NSMutableArray *encodedParams = [NSMutableArray array];
+    
+    [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop)
+     {
+         [encodedParams addObject:[NSURLQueryItem queryItemWithName:key value:value]];
          
      }];
     
-    return newPath;
+    components.queryItems = encodedParams;
+    
+    return components.URL;
 }
-
 
 @end
