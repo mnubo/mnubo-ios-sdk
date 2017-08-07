@@ -19,16 +19,16 @@
 
     NSURLSessionDataTask * dataTask =[[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        
+
         if (httpResponse.statusCode >= 300) {
             error = [[NSError alloc] initWithDomain:kMnuboDomain code:httpResponse.statusCode userInfo:nil];
             NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"An error occurred: %@", errorPayload);
         }
-        
+
         if (completion) completion(data, httpResponse.allHeaderFields, error);
     }];
-    
+
     [dataTask resume];
 }
 
@@ -40,7 +40,7 @@
     if (body) {
         [urlRequest setHTTPBody:body];
     }
-    
+
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
 
@@ -49,22 +49,21 @@
             NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
             NSLog(@"An error occurred: %@", errorPayload);
         }
-        
+
         if (completion) completion(data, httpResponse.allHeaderFields, error);
     }];
-    
+
     [dataTask resume];
 }
 
 
 + (void)DELETE:(NSString *)path headers:(NSDictionary *)headers parameters:(NSDictionary *)parameters completion:(void (^)(NSData *, NSDictionary *, NSError *))completion{
-    
+
     NSMutableURLRequest *urlRequest = [self generateRequestWithPath:path method:@"DELETE" headers:headers parameters:parameters];
-    
+
     NSURLSessionDataTask * dataTask = [[NSURLSession sharedSession] dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *)response;
-        // NSString *string = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        
+
         if (httpResponse.statusCode >= 300) {
             error = [[NSError alloc] initWithDomain:kMnuboDomain code:httpResponse.statusCode userInfo:nil];
             NSString *errorPayload = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
@@ -129,9 +128,9 @@
 
 + (NSURL *)encodeURL: (NSString *)url withParameters:(NSDictionary *)parameters {
     NSURLComponents *components = [NSURLComponents componentsWithString:url];
-    
+
     if (!parameters || [parameters count] < 1) return components.URL;
-    
+
     NSMutableArray *encodedParams = [NSMutableArray array];
     
     [parameters enumerateKeysAndObjectsUsingBlock:^(NSString *key, NSString *value, BOOL *stop)
@@ -141,7 +140,7 @@
      }];
     
     components.queryItems = encodedParams;
-    
+
     return components.URL;
 }
 

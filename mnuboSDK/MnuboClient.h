@@ -102,10 +102,10 @@
 
 /*!
  @method
- 
+
  @abstract
  Delete a SmartObject that belongs to the logged in user
- 
+
  @param deviceId The device id of the SmartObject
  @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
  */
@@ -113,10 +113,10 @@
 
 /*!
  @method
- 
+
  @abstract
  Update an existing Owner on the mnubo's platform
- 
+
  @param owner The updated Owner
  @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
  */
@@ -125,10 +125,10 @@
 
 /*!
  @method
- 
+
  @abstract
- Create an owner with a  username matching the token retrieved
- 
+ Create an owner with a username matching the token retrieved
+
  @param owner The Owner to create
  @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
  */
@@ -137,10 +137,10 @@
 
 /*!
  @method
- 
+
  @abstract
- Create an owner with a  username matching the token retrieved
- 
+ Delete the owner with a username matching the token retrieved
+
  @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
  */
 - (void)deleteOwner: (void (^)(NSError *error))completion;

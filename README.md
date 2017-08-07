@@ -39,12 +39,17 @@ The primary class of the SDK has to be initialized with your mnubo account infor
 
 * `Authentication`
   - `logInWithUsername:password:completion:`
+  - `logInWithUsername:andToken:completion:`
   - `logout`
   - `isOwnerConnected`
 
 * `Services`
   - `updateSmartObject:withDeviceId:completion:`
-  - `updateOwner:withUsername:completion:`
+  - `createSmartObject:withDeviceId:withObjectType:completion:`
+  - `deleteSmartObjectWithDeviceId:completion:`
+  - `updateOwner:completion:`
+  - `createOwner:withPassword:completion:`
+  - `deleteOwner:completion:`
   - `sendEvents:withDeviceId:completion:`
 
 ---
@@ -126,7 +131,7 @@ You can update an owner properties
 
 ```objc
 
-[[MnuboClient sharedInstance] updateOwner:owner withUsername:@"USERNAME" completion:^(NSError *error) {
+[[MnuboClient sharedInstance] updateOwner:owner completion:^(NSError *error) {
     if (!error) {
         //Update Successful
     } else {

@@ -23,7 +23,7 @@ static MnuboClient *_sharedInstance = nil;
 + (MnuboClient *)sharedInstanceWithClientId:(NSString *)clientId andHostname:(NSString *)hostname {
     NSAssert((clientId != nil), @"Client ID should be present");
     NSAssert((hostname != nil), @"Hostname should be present");
-    
+
     static dispatch_once_t unique = 0;
     dispatch_once(&unique, ^{
         _sharedInstance = [[self alloc] initWithClientId:clientId andHostname:hostname];
@@ -99,7 +99,7 @@ static MnuboClient *_sharedInstance = nil;
 - (void)updateSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId completion:(void (^)(NSError *error))completion {
     NSString *path = [NSString stringWithFormat:@"/api/v3/objects/%@", deviceId];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[smartObject toDictionary] options:0 error:nil];
-    
+
     [_apiManager putWithPath:path body:jsonData completion:^(NSData *data, NSError *error) {
         if(completion) completion(error);
     }];
@@ -108,7 +108,7 @@ static MnuboClient *_sharedInstance = nil;
     NSMutableDictionary * md = [[smartObject toDictionary] mutableCopy];
     [md setObject:deviceId forKey:@"x_device_id"];
     [md setObject:objectType forKey:@"x_object_type"];
-    
+
     NSString *path = [NSString stringWithFormat:@"/api/v3/owners/%@/objects", _apiManager.getUsername];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:md options:0 error:nil];
 
@@ -120,7 +120,7 @@ static MnuboClient *_sharedInstance = nil;
 
 - (void)deleteSmartObjectWithDeviceId:(NSString *)deviceId completion:(void (^)(NSError *))completion {
     NSString *path = [NSString stringWithFormat:@"/api/v3/owners/%@/objects/%@", _apiManager.getUsername, deviceId];
-    
+
     [_apiManager putWithPath:path body:nil completion:^(NSData *data, NSError *error) {
         if(completion) completion(error);
     }];
@@ -129,7 +129,7 @@ static MnuboClient *_sharedInstance = nil;
 - (void)updateOwner:(MNUOwner *)owner completion:(void (^)(NSError *error))completion {
     NSString *path = [NSString stringWithFormat:@"/api/v3/owners/%@", _apiManager.getUsername];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:[owner toDictionary] options:0 error:nil];
-    
+
     [_apiManager putWithPath:path body:jsonData completion:^(NSData *data, NSError *error) {
         if(completion) completion(error);
     }];
@@ -137,12 +137,12 @@ static MnuboClient *_sharedInstance = nil;
 
 - (void)createOwner:(MNUOwner *)owner withPassword:(NSString *)password completion:(void (^)(NSError *error))completion {
     NSString *path = @"/api/v3/owners";
-    
+
     NSMutableDictionary * md = [[owner toDictionary] mutableCopy];
     [md setObject:_apiManager.getUsername forKey:@"username"];
     [md setObject:password forKey:@"x_password"];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:md options:0 error:nil];
-    
+
     [_apiManager putWithPath:path body:jsonData completion:^(NSData *data, NSError *error) {
         if(completion) completion(error);
     }];
@@ -150,7 +150,7 @@ static MnuboClient *_sharedInstance = nil;
 
 - (void) deleteOwner: (void (^)(NSError *error))completion {
     NSString *path = [NSString stringWithFormat:@"/api/v3/owners/%@", _apiManager.getUsername];
-    
+
     [_apiManager putWithPath:path body:nil completion:^(NSData *data, NSError *error) {
         if(completion) completion(error);
     }];
@@ -160,7 +160,7 @@ static MnuboClient *_sharedInstance = nil;
     NSArray *eventsPayload = [self convertEvents:events];
     NSString *path = [NSString stringWithFormat:@"/api/v3/objects/%@/events", deviceId];
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:eventsPayload options:0 error:nil];
-    
+
     [_apiManager postWithPath:path body:jsonData completion:^(NSData *data, NSError *error) {
         if(completion) completion(error);
     }];
