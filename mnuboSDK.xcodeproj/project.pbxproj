@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39FAFF191F38E6CA00AB687A /* ITTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FAFF181F38E6CA00AB687A /* ITTest.swift */; };
 		F0A959671DC6FF5100847656 /* mnuboSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A9595D1DC6FF5100847656 /* mnuboSDK.framework */; };
 		F0A9596E1DC6FF5100847656 /* mnuboSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A959601DC6FF5100847656 /* mnuboSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0A959921DC6FF7500847656 /* MNUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A959781DC6FF7500847656 /* MNUConstants.h */; };
@@ -45,6 +46,8 @@
 
 /* Begin PBXFileReference section */
 		39B285041F224AE600329E3F /* MNUSupportedIsp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNUSupportedIsp.h; sourceTree = "<group>"; };
+		39FAFF171F38E6CA00AB687A /* mnuboSDKTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mnuboSDKTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		39FAFF181F38E6CA00AB687A /* ITTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITTest.swift; sourceTree = "<group>"; };
 		F0A9595D1DC6FF5100847656 /* mnuboSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mnuboSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0A959601DC6FF5100847656 /* mnuboSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mnuboSDK.h; sourceTree = "<group>"; };
 		F0A959611DC6FF5100847656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -131,6 +134,8 @@
 			children = (
 				F0A9596D1DC6FF5100847656 /* Info.plist */,
 				F0A959AB1DC708BE00847656 /* MNUAccessTokenTests.m */,
+				39FAFF181F38E6CA00AB687A /* ITTest.swift */,
+				39FAFF171F38E6CA00AB687A /* mnuboSDKTests-Bridging-Header.h */,
 			);
 			path = mnuboSDKTests;
 			sourceTree = "<group>";
@@ -259,6 +264,7 @@
 					};
 					F0A959651DC6FF5100847656 = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -321,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0A959AC1DC708BE00847656 /* MNUAccessTokenTests.m in Sources */,
+				39FAFF191F38E6CA00AB687A /* ITTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -470,20 +477,27 @@
 		F0A959751DC6FF5100847656 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = mnuboSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mnubo.mnuboSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mnuboSDKTests/mnuboSDKTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		F0A959761DC6FF5100847656 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = mnuboSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mnubo.mnuboSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mnuboSDKTests/mnuboSDKTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
