@@ -9,7 +9,7 @@
 #import "MNUSmartObject.h"
 #import "MNUEvent.h"
 #import "MNUOwner.h"
-
+#import "MNUSupportedIsp.h"
 
 @interface MnuboClient : NSObject
 
@@ -68,7 +68,11 @@
 
 // Services
 - (void)updateSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId;
-- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username;
+- (void)createSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId withObjectType:(NSString *)objectType;
+- (void)deleteSmartObjectWithDeviceId:(NSString *)deviceId;
+- (void)updateOwner:(MNUOwner *)owner;
+- (void)createOwner:(MNUOwner *)owner withPassword:(NSString *)password;
+- (void)deleteOwner;
 - (void)sendEvents:(NSArray *)events withDeviceId:(NSString *)deviceId;
 
 /*!
@@ -87,13 +91,59 @@
  @method
  
  @abstract
- Update an existing Owner on the mnubo's platform
+ Create a SmartObject that belongs to the logged in user
  
- @param owner The updated Owner
- @param username The username corresponding to that Owner
+ @param smartObject The updated SmartObject
+ @param deviceId The device id of the SmartObject
+ @param objectType The object type of the SmartObject
  @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
  */
-- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username completion:(void (^)(NSError *error))completion;
+- (void)createSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId withObjectType:(NSString *)objectType completion:(void (^)(NSError *error))completion;
+
+/*!
+ @method
+
+ @abstract
+ Delete a SmartObject that belongs to the logged in user
+
+ @param deviceId The device id of the SmartObject
+ @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
+ */
+- (void)deleteSmartObjectWithDeviceId:(NSString *)deviceId completion:(void (^)(NSError *error))completion;
+
+/*!
+ @method
+
+ @abstract
+ Update an existing Owner on the mnubo's platform
+
+ @param owner The updated Owner
+ @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
+ */
+- (void)updateOwner:(MNUOwner *)owner completion:(void (^)(NSError *error))completion;
+
+
+/*!
+ @method
+
+ @abstract
+ Create an owner with a username matching the token retrieved
+
+ @param owner The Owner to create
+ @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
+ */
+- (void)createOwner:(MNUOwner *)owner withPassword:(NSString *)password  completion:(void (^)(NSError *error))completion;
+
+
+/*!
+ @method
+
+ @abstract
+ Delete the owner with a username matching the token retrieved
+
+ @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
+ */
+- (void)deleteOwner: (void (^)(NSError *error))completion;
 
 /*!
  @method

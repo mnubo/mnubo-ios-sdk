@@ -13,6 +13,7 @@ extern NSString * const kSmartObjectPath;
 extern NSString * const kEventPath;
 extern NSString * const kMnuboDomain;
 
+extern NSString * const kMnuboUsernameKey;
 extern NSString * const kMnuboUserAccessTokenKey;
 extern NSString * const kMnuboUserRefreshTokenKey;
 extern NSString * const kMnuboUserExpiresInKey;

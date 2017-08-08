@@ -10,13 +10,14 @@
 
 @implementation MNUAccessToken
 
-- (instancetype)initWithDictionary:(NSDictionary *)dictionary {
+- (instancetype)initWithDictionary:(NSDictionary *)dictionary andUsername:(NSString*) username {
     
     self = [super init];
     if (self) {
         _accessToken = [dictionary objectForKey:@"access_token"];
         _refreshToken = [dictionary objectForKey:@"refresh_token"];
         _expiresIn = [dictionary objectForKey:@"expires_in"];
+        _username = username;
         _requestedAt = [NSDate date];
     }
     
@@ -28,6 +29,7 @@
     _refreshToken = nil;
     _expiresIn = nil;
     _requestedAt = nil;
+    _username = nil;
 }
 
 - (BOOL)isValid {
@@ -43,6 +45,7 @@
     _refreshToken = [[PDKeychainBindings sharedKeychainBindings] stringForKey:kMnuboUserRefreshTokenKey];
     _expiresIn = [[NSUserDefaults standardUserDefaults] objectForKey:kMnuboUserExpiresInKey];
     _requestedAt = [[NSUserDefaults standardUserDefaults] objectForKey:kMnuboUserTokenTimestampKey];
+    _username = [[PDKeychainBindings sharedKeychainBindings] stringForKey:kMnuboUsernameKey];
 }
 
 - (void)saveTokens
@@ -52,6 +55,7 @@
     [[PDKeychainBindings sharedKeychainBindings] setString:_refreshToken forKey:kMnuboUserRefreshTokenKey];
     [[NSUserDefaults standardUserDefaults] setObject:_expiresIn forKey:kMnuboUserExpiresInKey];
     [[NSUserDefaults standardUserDefaults] setObject:_requestedAt forKey:kMnuboUserTokenTimestampKey];
+    [[PDKeychainBindings sharedKeychainBindings] setString:_username forKey:kMnuboUsernameKey];
     
     [[NSUserDefaults standardUserDefaults] synchronize];
 }

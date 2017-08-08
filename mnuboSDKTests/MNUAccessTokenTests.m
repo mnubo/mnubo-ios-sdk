@@ -34,7 +34,7 @@ MNUAccessToken *sampleToken;
     now = [NSDate date];
     sampleTokenDict = @{ @"access_token": @"ACCESS_TOKEN", @"refresh_token": @"REFRESH_TOKEN", @"expires_in": @90 };
     
-    sampleToken = [[MNUAccessToken alloc] initWithDictionary:sampleTokenDict];
+    sampleToken = [[MNUAccessToken alloc] initWithDictionary:sampleTokenDict andUsername:@"username"];
     sampleToken.requestedAt = now;
     
     XCTAssertEqual(@"ACCESS_TOKEN", sampleToken.accessToken);
@@ -56,9 +56,10 @@ MNUAccessToken *sampleToken;
 }
 
 - (void)testInitWithEmptyDictionary {
-    MNUAccessToken *token = [[MNUAccessToken alloc] initWithDictionary:nil];
+    MNUAccessToken *token = [[MNUAccessToken alloc] initWithDictionary:nil andUsername:nil];
     
     XCTAssertNotNil(token);
+    XCTAssertNil(token.username);
     XCTAssertNil(token.accessToken);
     XCTAssertNil(token.refreshToken);
     XCTAssertNil(token.expiresIn);
@@ -82,10 +83,11 @@ MNUAccessToken *sampleToken;
 - (void)testLoadTokens {
     [sampleToken saveTokens];
     
-    MNUAccessToken *token = [[MNUAccessToken alloc] initWithDictionary:nil];
+    MNUAccessToken *token = [[MNUAccessToken alloc] initWithDictionary:nil andUsername:nil];
     [token loadTokens];
     
     XCTAssertEqual(@"ACCESS_TOKEN", token.accessToken);
+    XCTAssertEqual(@"username", token.username);
     XCTAssertEqual(@"REFRESH_TOKEN", token.refreshToken);
     XCTAssertTrue([token.expiresIn isEqualToNumber:@90]);
     XCTAssertTrue([token.requestedAt isEqual:now]);

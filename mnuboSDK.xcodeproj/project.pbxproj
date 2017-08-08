@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39FAFF191F38E6CA00AB687A /* ITTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 39FAFF181F38E6CA00AB687A /* ITTest.swift */; };
 		F0A959671DC6FF5100847656 /* mnuboSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A9595D1DC6FF5100847656 /* mnuboSDK.framework */; };
 		F0A9596E1DC6FF5100847656 /* mnuboSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A959601DC6FF5100847656 /* mnuboSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F0A959921DC6FF7500847656 /* MNUConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A959781DC6FF7500847656 /* MNUConstants.h */; };
@@ -14,8 +15,6 @@
 		F0A959941DC6FF7500847656 /* MNUHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A9597A1DC6FF7500847656 /* MNUHTTPClient.h */; };
 		F0A959951DC6FF7500847656 /* MNUHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A9597B1DC6FF7500847656 /* MNUHTTPClient.m */; };
 		F0A959961DC6FF7500847656 /* MNUMacros.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A9597C1DC6FF7500847656 /* MNUMacros.h */; };
-		F0A959971DC6FF7500847656 /* NSString+mnubo.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A9597D1DC6FF7500847656 /* NSString+mnubo.h */; };
-		F0A959981DC6FF7500847656 /* NSString+mnubo.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A9597E1DC6FF7500847656 /* NSString+mnubo.m */; };
 		F0A959991DC6FF7500847656 /* MnuboClient.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A9597F1DC6FF7500847656 /* MnuboClient.h */; };
 		F0A9599A1DC6FF7500847656 /* MnuboClient.m in Sources */ = {isa = PBXBuildFile; fileRef = F0A959801DC6FF7500847656 /* MnuboClient.m */; };
 		F0A9599B1DC6FF7500847656 /* MNUAccessToken.h in Headers */ = {isa = PBXBuildFile; fileRef = F0A959821DC6FF7500847656 /* MNUAccessToken.h */; };
@@ -46,6 +45,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		39B285041F224AE600329E3F /* MNUSupportedIsp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MNUSupportedIsp.h; sourceTree = "<group>"; };
+		39FAFF171F38E6CA00AB687A /* mnuboSDKTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "mnuboSDKTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		39FAFF181F38E6CA00AB687A /* ITTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ITTest.swift; sourceTree = "<group>"; };
 		F0A9595D1DC6FF5100847656 /* mnuboSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = mnuboSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		F0A959601DC6FF5100847656 /* mnuboSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mnuboSDK.h; sourceTree = "<group>"; };
 		F0A959611DC6FF5100847656 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,8 +58,6 @@
 		F0A9597A1DC6FF7500847656 /* MNUHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNUHTTPClient.h; sourceTree = "<group>"; };
 		F0A9597B1DC6FF7500847656 /* MNUHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MNUHTTPClient.m; sourceTree = "<group>"; };
 		F0A9597C1DC6FF7500847656 /* MNUMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNUMacros.h; sourceTree = "<group>"; };
-		F0A9597D1DC6FF7500847656 /* NSString+mnubo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+mnubo.h"; sourceTree = "<group>"; };
-		F0A9597E1DC6FF7500847656 /* NSString+mnubo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+mnubo.m"; sourceTree = "<group>"; };
 		F0A9597F1DC6FF7500847656 /* MnuboClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MnuboClient.h; sourceTree = "<group>"; };
 		F0A959801DC6FF7500847656 /* MnuboClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MnuboClient.m; sourceTree = "<group>"; };
 		F0A959821DC6FF7500847656 /* MNUAccessToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MNUAccessToken.h; sourceTree = "<group>"; };
@@ -134,6 +134,8 @@
 			children = (
 				F0A9596D1DC6FF5100847656 /* Info.plist */,
 				F0A959AB1DC708BE00847656 /* MNUAccessTokenTests.m */,
+				39FAFF181F38E6CA00AB687A /* ITTest.swift */,
+				39FAFF171F38E6CA00AB687A /* mnuboSDKTests-Bridging-Header.h */,
 			);
 			path = mnuboSDKTests;
 			sourceTree = "<group>";
@@ -146,8 +148,6 @@
 				F0A9597A1DC6FF7500847656 /* MNUHTTPClient.h */,
 				F0A9597B1DC6FF7500847656 /* MNUHTTPClient.m */,
 				F0A9597C1DC6FF7500847656 /* MNUMacros.h */,
-				F0A9597D1DC6FF7500847656 /* NSString+mnubo.h */,
-				F0A9597E1DC6FF7500847656 /* NSString+mnubo.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -163,6 +163,7 @@
 				F0A959871DC6FF7500847656 /* MNUOwner.m */,
 				F0A959881DC6FF7500847656 /* MNUSmartObject.h */,
 				F0A959891DC6FF7500847656 /* MNUSmartObject.m */,
+				39B285041F224AE600329E3F /* MNUSupportedIsp.h */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -195,7 +196,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0A959A31DC6FF7500847656 /* PDKeychainBindings.h in Headers */,
-				F0A959971DC6FF7500847656 /* NSString+mnubo.h in Headers */,
 				F0A9599F1DC6FF7500847656 /* MNUOwner.h in Headers */,
 				F0A959941DC6FF7500847656 /* MNUHTTPClient.h in Headers */,
 				F0A959A71DC6FF7500847656 /* MNUApiManager.h in Headers */,
@@ -255,7 +255,7 @@
 		F0A959541DC6FF5100847656 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = mnubo;
 				TargetAttributes = {
 					F0A9595C1DC6FF5100847656 = {
@@ -264,6 +264,7 @@
 					};
 					F0A959651DC6FF5100847656 = {
 						CreatedOnToolsVersion = 8.0;
+						LastSwiftMigration = 0830;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -315,7 +316,6 @@
 				F0A959A61DC6FF7500847656 /* PDKeychainBindingsController.m in Sources */,
 				F0A959A01DC6FF7500847656 /* MNUOwner.m in Sources */,
 				F0A959931DC6FF7500847656 /* MNUConstants.m in Sources */,
-				F0A959981DC6FF7500847656 /* NSString+mnubo.m in Sources */,
 				F0A959A41DC6FF7500847656 /* PDKeychainBindings.m in Sources */,
 				F0A959951DC6FF7500847656 /* MNUHTTPClient.m in Sources */,
 				F0A9599E1DC6FF7500847656 /* MNUEvent.m in Sources */,
@@ -327,6 +327,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F0A959AC1DC708BE00847656 /* MNUAccessTokenTests.m in Sources */,
+				39FAFF191F38E6CA00AB687A /* ITTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -359,6 +360,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -410,6 +412,7 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_SUSPICIOUS_MOVES = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -474,20 +477,27 @@
 		F0A959751DC6FF5100847656 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = mnuboSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mnubo.mnuboSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mnuboSDKTests/mnuboSDKTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
 		F0A959761DC6FF5100847656 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = mnuboSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.mnubo.mnuboSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "mnuboSDKTests/mnuboSDKTests-Bridging-Header.h";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -510,6 +520,7 @@
 				F0A959731DC6FF5100847656 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		F0A959741DC6FF5100847656 /* Build configuration list for PBXNativeTarget "mnuboSDKTests" */ = {
 			isa = XCConfigurationList;
@@ -518,6 +529,7 @@
 				F0A959761DC6FF5100847656 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

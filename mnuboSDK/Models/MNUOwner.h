@@ -9,8 +9,6 @@
 
 @interface MNUOwner : NSObject
 
-@property (nonatomic, copy) NSString *username;
-@property (nonatomic, copy) NSString *password;
 @property (nonatomic, copy) NSMutableDictionary* attributes;
 
 - (NSDictionary *)toDictionary;
