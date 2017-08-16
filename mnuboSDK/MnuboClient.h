@@ -70,6 +70,7 @@
 - (void)updateSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId;
 - (void)createSmartObject:(MNUSmartObject *)smartObject withDeviceId:(NSString *)deviceId withObjectType:(NSString *)objectType;
 - (void)deleteSmartObjectWithDeviceId:(NSString *)deviceId;
+- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username;
 - (void)updateOwner:(MNUOwner *)owner;
 - (void)createOwner:(MNUOwner *)owner withPassword:(NSString *)password;
 - (void)deleteOwner;
@@ -121,6 +122,18 @@
  @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
  */
 - (void)updateOwner:(MNUOwner *)owner completion:(void (^)(NSError *error))completion;
+
+/*!
+ @method
+ 
+ @abstract
+ Update an existing Owner on the mnubo's platform
+ 
+ @param username the username to update
+ @param owner The updated Owner
+ @param completion The block called once the action is completed (If and error occured it will be passed via the NSError)
+ */
+- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username completion:(void (^)(NSError *error))completion;
 
 
 /*!

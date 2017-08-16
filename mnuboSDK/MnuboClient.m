@@ -82,6 +82,10 @@ static MnuboClient *_sharedInstance = nil;
     [self updateOwner:owner completion:nil];
 }
 
+- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username {
+    [self updateOwner:owner completion:nil];
+}
+
 - (void)createOwner:(MNUOwner *)owner withPassword:(NSString *)password  {
     [self createOwner:owner withPassword:password completion:nil];
 }
@@ -89,7 +93,6 @@ static MnuboClient *_sharedInstance = nil;
 - (void)deleteOwner {
     [self deleteOwner:nil];
 }
-
 
 - (void)sendEvents:(NSArray *)events withDeviceId:(NSString *)deviceId {
     [self sendEvents:events withDeviceId:deviceId completion:nil];
@@ -133,6 +136,10 @@ static MnuboClient *_sharedInstance = nil;
     [_apiManager putWithPath:path body:jsonData completion:^(NSData *data, NSError *error) {
         if(completion) completion(error);
     }];
+}
+
+- (void)updateOwner:(MNUOwner *)owner withUsername:(NSString *)username completion:(void (^)(NSError *error))completion {
+    [self updateOwner:owner completion:completion];
 }
 
 - (void)createOwner:(MNUOwner *)owner withPassword:(NSString *)password completion:(void (^)(NSError *error))completion {
