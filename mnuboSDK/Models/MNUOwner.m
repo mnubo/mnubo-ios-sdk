@@ -24,6 +24,9 @@
 
 - (NSDictionary *)toDictionary {
     NSMutableDictionary *attributeDictionary = [NSMutableDictionary dictionary];
+
+    SafeSetValueForKey(attributeDictionary, @"username", _username);
+    SafeSetValueForKey(attributeDictionary, @"x_password", _password);
     
     for (id key in _attributes)
         SafeSetValueForKey(attributeDictionary, key, [_attributes objectForKey:key]);
